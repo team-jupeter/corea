@@ -1,0 +1,22 @@
+<h1>Show Metabolic panel</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.MetabolicPanelLive.FormComponent,
+    id: @metabolic_panel.id,
+    title: @page_title,
+    action: @live_action,
+    metabolic_panel: @metabolic_panel,
+    return_to: Routes.metabolic_panel_show_path(@socket, :show, @metabolic_panel) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @metabolic_panel.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.metabolic_panel_show_path(@socket, :edit, @metabolic_panel), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.metabolic_panel_index_path(@socket, :index) %></span>

@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "health_report-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :dna %>
+  <%= number_input f, :dna, step: "any" %>
+  <%= error_tag f, :dna %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

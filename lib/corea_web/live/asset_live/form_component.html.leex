@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "asset-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :title %>
+  <%= text_input f, :title %>
+  <%= error_tag f, :title %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

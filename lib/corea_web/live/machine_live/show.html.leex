@@ -1,0 +1,22 @@
+<h1>Show Machine</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.MachineLive.FormComponent,
+    id: @machine.id,
+    title: @page_title,
+    action: @live_action,
+    machine: @machine,
+    return_to: Routes.machine_show_path(@socket, :show, @machine) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @machine.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.machine_show_path(@socket, :edit, @machine), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.machine_index_path(@socket, :index) %></span>

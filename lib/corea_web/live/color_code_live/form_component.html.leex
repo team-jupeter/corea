@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "color_code-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :char_1 %>
+  <%= number_input f, :char_1 %>
+  <%= error_tag f, :char_1 %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

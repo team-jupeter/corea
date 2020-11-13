@@ -1,0 +1,35 @@
+<h1>Listing Fair trades</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.FairTradeLive.FormComponent,
+    id: @fair_trade.id || :new,
+    title: @page_title,
+    action: @live_action,
+    fair_trade: @fair_trade,
+    return_to: Routes.fair_trade_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fair?</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="fair_trades">
+    <%= for fair_trade <- @fair_trades do %>
+      <tr id="fair_trade-<%= fair_trade.id %>">
+        <td><%= fair_trade.fair? %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.fair_trade_show_path(@socket, :show, fair_trade) %></span>
+          <span><%= live_patch "Edit", to: Routes.fair_trade_index_path(@socket, :edit, fair_trade) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: fair_trade.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Fair trade", to: Routes.fair_trade_index_path(@socket, :new) %></span>

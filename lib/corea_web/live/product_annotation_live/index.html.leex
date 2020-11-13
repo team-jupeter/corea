@@ -1,0 +1,35 @@
+<h1>Listing Product annotations</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.ProductAnnotationLive.FormComponent,
+    id: @product_annotation.id || :new,
+    title: @page_title,
+    action: @live_action,
+    product_annotation: @product_annotation,
+    return_to: Routes.product_annotation_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="product_annotations">
+    <%= for product_annotation <- @product_annotations do %>
+      <tr id="product_annotation-<%= product_annotation.id %>">
+        <td><%= product_annotation.body %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.product_annotation_show_path(@socket, :show, product_annotation) %></span>
+          <span><%= live_patch "Edit", to: Routes.product_annotation_index_path(@socket, :edit, product_annotation) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product_annotation.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Product annotation", to: Routes.product_annotation_index_path(@socket, :new) %></span>

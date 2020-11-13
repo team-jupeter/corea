@@ -1,0 +1,49 @@
+<h1>Listing Gabs</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.GABLive.FormComponent,
+    id: @gab.id || :new,
+    title: @page_title,
+    action: @live_action,
+    gab: @gab,
+    return_to: Routes.gab_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Unique digits</th>
+      <th>Telephones</th>
+      <th>T1 balance</th>
+      <th>T2 balance</th>
+      <th>T3 balance</th>
+      <th>T4 balance</th>
+      <th>T5 balance</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="gabs">
+    <%= for gab <- @gabs do %>
+      <tr id="gab-<%= gab.id %>">
+        <td><%= gab.name %></td>
+        <td><%= gab.unique_digits %></td>
+        <td><%= gab.telephones %></td>
+        <td><%= gab.t1_balance %></td>
+        <td><%= gab.t2_balance %></td>
+        <td><%= gab.t3_balance %></td>
+        <td><%= gab.t4_balance %></td>
+        <td><%= gab.t5_balance %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.gab_show_path(@socket, :show, gab) %></span>
+          <span><%= live_patch "Edit", to: Routes.gab_index_path(@socket, :edit, gab) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: gab.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Gab", to: Routes.gab_index_path(@socket, :new) %></span>

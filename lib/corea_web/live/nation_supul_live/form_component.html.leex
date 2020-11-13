@@ -1,0 +1,66 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "nation_supul-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :t1_balance %>
+  <%= number_input f, :t1_balance, step: "any" %>
+  <%= error_tag f, :t1_balance %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :type %>
+  <%= text_input f, :type %>
+  <%= error_tag f, :type %>
+
+  <%= label f, :nation_supul_code %>
+  <%= text_input f, :nation_supul_code %>
+  <%= error_tag f, :nation_supul_code %>
+
+  <%= label f, :nation_name %>
+  <%= text_input f, :nation_name %>
+  <%= error_tag f, :nation_name %>
+
+  <%= label f, :auth_code %>
+  <%= text_input f, :auth_code %>
+  <%= error_tag f, :auth_code %>
+
+  <%= label f, :hash_count %>
+  <%= number_input f, :hash_count %>
+  <%= error_tag f, :hash_count %>
+
+  <%= label f, :hash_chain %>
+  <%= multiple_select f, :hash_chain, ["Option 1": "option1", "Option 2": "option2"] %>
+  <%= error_tag f, :hash_chain %>
+
+  <%= label f, :openhash_box %>
+  <%= multiple_select f, :openhash_box, ["Option 1": "option1", "Option 2": "option2"] %>
+  <%= error_tag f, :openhash_box %>
+
+  <%= label f, :current_hash %>
+  <%= text_input f, :current_hash %>
+  <%= error_tag f, :current_hash %>
+
+  <%= label f, :incoming_hash %>
+  <%= text_input f, :incoming_hash %>
+  <%= error_tag f, :incoming_hash %>
+
+  <%= label f, :previous_hash %>
+  <%= text_input f, :previous_hash %>
+  <%= error_tag f, :previous_hash %>
+
+  <%= label f, :global_openhash_id %>
+  <%= text_input f, :global_openhash_id %>
+  <%= error_tag f, :global_openhash_id %>
+
+  <%= label f, :sender %>
+  <%= text_input f, :sender %>
+  <%= error_tag f, :sender %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

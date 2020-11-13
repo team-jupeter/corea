@@ -1,0 +1,57 @@
+<h1>Show Family</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.FamilyLive.FormComponent,
+    id: @family.id,
+    title: @page_title,
+    action: @live_action,
+    family: @family,
+    return_to: Routes.family_show_path(@socket, :show, @family) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @family.t1_balance %>
+  </li>
+
+  <li>
+    <strong>Family code:</strong>
+    <%= @family.family_code %>
+  </li>
+
+  <li>
+    <strong>Nationality:</strong>
+    <%= @family.nationality %>
+  </li>
+
+  <li>
+    <strong>Auth code:</strong>
+    <%= @family.auth_code %>
+  </li>
+
+  <li>
+    <strong>Address:</strong>
+    <%= @family.address %>
+  </li>
+
+  <li>
+    <strong>House holder name:</strong>
+    <%= @family.house_holder_name %>
+  </li>
+
+  <li>
+    <strong>House holder email:</strong>
+    <%= @family.house_holder_email %>
+  </li>
+
+  <li>
+    <strong>House holder supul:</strong>
+    <%= @family.house_holder_supul_id %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.family_show_path(@socket, :edit, @family), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.family_index_path(@socket, :index) %></span>

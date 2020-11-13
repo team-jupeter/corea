@@ -1,0 +1,22 @@
+<h1>Show Fiat pool</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.FiatPoolLive.FormComponent,
+    id: @fiat_pool.id,
+    title: @page_title,
+    action: @live_action,
+    fiat_pool: @fiat_pool,
+    return_to: Routes.fiat_pool_show_path(@socket, :show, @fiat_pool) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Aed:</strong>
+    <%= @fiat_pool.aed %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.fiat_pool_show_path(@socket, :edit, @fiat_pool), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.fiat_pool_index_path(@socket, :index) %></span>

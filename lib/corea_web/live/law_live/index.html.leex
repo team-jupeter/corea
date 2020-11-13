@@ -1,0 +1,35 @@
+<h1>Listing Laws</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.LawLive.FormComponent,
+    id: @law.id || :new,
+    title: @page_title,
+    action: @live_action,
+    law: @law,
+    return_to: Routes.law_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="laws">
+    <%= for law <- @laws do %>
+      <tr id="law-<%= law.id %>">
+        <td><%= law.type %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.law_show_path(@socket, :show, law) %></span>
+          <span><%= live_patch "Edit", to: Routes.law_index_path(@socket, :edit, law) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: law.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Law", to: Routes.law_index_path(@socket, :new) %></span>

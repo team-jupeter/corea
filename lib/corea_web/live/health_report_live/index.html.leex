@@ -1,0 +1,35 @@
+<h1>Listing Health reports</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.HealthReportLive.FormComponent,
+    id: @health_report.id || :new,
+    title: @page_title,
+    action: @live_action,
+    health_report: @health_report,
+    return_to: Routes.health_report_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dna</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="health_reports">
+    <%= for health_report <- @health_reports do %>
+      <tr id="health_report-<%= health_report.id %>">
+        <td><%= health_report.dna %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.health_report_show_path(@socket, :show, health_report) %></span>
+          <span><%= live_patch "Edit", to: Routes.health_report_index_path(@socket, :edit, health_report) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: health_report.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Health report", to: Routes.health_report_index_path(@socket, :new) %></span>

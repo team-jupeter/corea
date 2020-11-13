@@ -1,0 +1,22 @@
+<h1>Show Traffic</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TrafficLive.FormComponent,
+    id: @traffic.id,
+    title: @page_title,
+    action: @live_action,
+    traffic: @traffic,
+    return_to: Routes.traffic_show_path(@socket, :show, @traffic) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @traffic.type %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.traffic_show_path(@socket, :edit, @traffic), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.traffic_index_path(@socket, :index) %></span>

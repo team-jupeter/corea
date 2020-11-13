@@ -1,0 +1,22 @@
+<h1>Show Terminal</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TerminalLive.FormComponent,
+    id: @terminal.id,
+    title: @page_title,
+    action: @live_action,
+    terminal: @terminal,
+    return_to: Routes.terminal_show_path(@socket, :show, @terminal) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @terminal.type %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.terminal_show_path(@socket, :edit, @terminal), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.terminal_index_path(@socket, :index) %></span>

@@ -1,0 +1,35 @@
+<h1>Listing Payloads</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.PayloadLive.FormComponent,
+    id: @payload.id || :new,
+    title: @page_title,
+    action: @live_action,
+    payload: @payload,
+    return_to: Routes.payload_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="payloads">
+    <%= for payload <- @payloads do %>
+      <tr id="payload-<%= payload.id %>">
+        <td><%= payload.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.payload_show_path(@socket, :show, payload) %></span>
+          <span><%= live_patch "Edit", to: Routes.payload_index_path(@socket, :edit, payload) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: payload.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Payload", to: Routes.payload_index_path(@socket, :new) %></span>

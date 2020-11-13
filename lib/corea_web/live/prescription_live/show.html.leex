@@ -1,0 +1,22 @@
+<h1>Show Prescription</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.PrescriptionLive.FormComponent,
+    id: @prescription.id,
+    title: @page_title,
+    action: @live_action,
+    prescription: @prescription,
+    return_to: Routes.prescription_show_path(@socket, :show, @prescription) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Doctor:</strong>
+    <%= @prescription.doctor %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.prescription_show_path(@socket, :edit, @prescription), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.prescription_index_path(@socket, :index) %></span>

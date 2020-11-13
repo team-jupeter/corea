@@ -1,0 +1,35 @@
+<h1>Listing Financial accounts</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.FinancialAccountLive.FormComponent,
+    id: @financial_account.id || :new,
+    title: @page_title,
+    action: @live_action,
+    financial_account: @financial_account,
+    return_to: Routes.financial_account_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Left</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="financial_accounts">
+    <%= for financial_account <- @financial_accounts do %>
+      <tr id="financial_account-<%= financial_account.id %>">
+        <td><%= financial_account.left %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.financial_account_show_path(@socket, :show, financial_account) %></span>
+          <span><%= live_patch "Edit", to: Routes.financial_account_index_path(@socket, :edit, financial_account) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: financial_account.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Financial account", to: Routes.financial_account_index_path(@socket, :new) %></span>

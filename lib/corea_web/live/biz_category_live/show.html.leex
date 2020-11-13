@@ -1,0 +1,32 @@
+<h1>Show Biz category</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.BizCategoryLive.FormComponent,
+    id: @biz_category.id,
+    title: @page_title,
+    action: @live_action,
+    biz_category: @biz_category,
+    return_to: Routes.biz_category_show_path(@socket, :show, @biz_category) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Standard:</strong>
+    <%= @biz_category.standard %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @biz_category.name %>
+  </li>
+
+  <li>
+    <strong>Code:</strong>
+    <%= @biz_category.code %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.biz_category_show_path(@socket, :edit, @biz_category), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.biz_category_index_path(@socket, :index) %></span>

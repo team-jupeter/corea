@@ -1,0 +1,22 @@
+<h1>Show Invoice item</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.InvoiceItemLive.FormComponent,
+    id: @invoice_item.id,
+    title: @page_title,
+    action: @live_action,
+    invoice_item: @invoice_item,
+    return_to: Routes.invoice_item_show_path(@socket, :show, @invoice_item) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Item name:</strong>
+    <%= @invoice_item.item_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.invoice_item_show_path(@socket, :edit, @invoice_item), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.invoice_item_index_path(@socket, :index) %></span>

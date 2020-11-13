@@ -1,0 +1,71 @@
+defmodule Corea.Gabs.Gab do
+  use Ecto.Schema
+  import Ecto.Changeset
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
+
+  schema "gabs" do
+    field :name, :string
+    field :unique_digits, :string
+    field :telephones, {:array, :map}
+
+    field :t1_balance, :decimal, precision: 20, scale: 4, default: 0.0
+    field :t2_balance, :decimal, precision: 20, scale: 4, default: 0.0
+    field :t3_balance, :decimal, precision: 20, scale: 4, default: 0.0
+    field :t4_balance, :decimal, precision: 20, scale: 4, default: 0.0
+    field :t5_balance, :decimal, precision: 20, scale: 4, default: 0.0
+
+    has_one :money_pool, Corea.MoneyPools.MoneyPool
+    has_one :fiat_pool, Corea.FiatPools.FiatPool
+
+    has_one :t1_pool, Corea.T1Pools.T1Pool
+    has_one :t2_pool, Corea.T2Pools.T2Pool
+    has_one :t3_pool, Corea.T3Pools.T3Pool
+    has_one :t4_pool, Corea.T4Pools.T4Pool
+
+    belongs_to :supul, Corea.Supuls.Supul, type: :binary_id
+    belongs_to :state_supul, Corea.StateSupuls.StateSupul, type: :binary_id
+    belongs_to :nation_supul, Corea.NationSupuls.NationSupul, type: :binary_id
+
+    timestamps()
+  end
+
+  @fields [
+    :name,
+    :unique_digits,
+    :tels,
+    :t1_balance,
+    :t2_balance,
+    :t3_balance,
+    :t4_balance,
+    :t5_balance,
+  ]
+  @doc false
+  def changeset(gab, attrs) do
+    gab
+    |> cast(attrs, @fields)
+    |> put_assoc(:t1_pool, attrs.t1_pool)
+    |> put_assoc(:t2_pool, attrs.t2_pool)
+    |> put_assoc(:t3_pool, attrs.t3_pool)
+    |> put_assoc(:t4_pool, attrs.t4_pool)
+    |> validate_required([])
+  end
+
+  def changeset_supul(gab, attrs) do
+    gab
+    |> changeset(attrs)
+    |> put_assoc(:supul, attrs.supul)
+  end
+
+  def changeset_state_supul(gab, attrs) do
+    gab
+    |> changeset(attrs)
+    |> put_assoc(:state_supul, attrs.state_supul)
+  end
+
+  def changeset_nation_supul(gab, attrs) do
+    gab
+    |> changeset(attrs)
+    |> put_assoc(:nation_supul, attrs.nation_supul)
+  end
+end

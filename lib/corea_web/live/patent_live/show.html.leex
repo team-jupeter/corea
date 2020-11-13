@@ -1,0 +1,22 @@
+<h1>Show Patent</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.PatentLive.FormComponent,
+    id: @patent.id,
+    title: @page_title,
+    action: @live_action,
+    patent: @patent,
+    return_to: Routes.patent_show_path(@socket, :show, @patent) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Issued by:</strong>
+    <%= @patent.issued_by %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.patent_show_path(@socket, :edit, @patent), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.patent_index_path(@socket, :index) %></span>

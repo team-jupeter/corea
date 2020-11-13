@@ -1,0 +1,62 @@
+<h1>Show Global supul</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GlobalSupulLive.FormComponent,
+    id: @global_supul.id,
+    title: @page_title,
+    action: @live_action,
+    global_supul: @global_supul,
+    return_to: Routes.global_supul_show_path(@socket, :show, @global_supul) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @global_supul.t1_balance %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @global_supul.type %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @global_supul.name %>
+  </li>
+
+  <li>
+    <strong>Auth code:</strong>
+    <%= @global_supul.auth_code %>
+  </li>
+
+  <li>
+    <strong>Hash count:</strong>
+    <%= @global_supul.hash_count %>
+  </li>
+
+  <li>
+    <strong>Hash chain:</strong>
+    <%= @global_supul.hash_chain %>
+  </li>
+
+  <li>
+    <strong>Openhash box:</strong>
+    <%= @global_supul.openhash_box %>
+  </li>
+
+  <li>
+    <strong>Current hash:</strong>
+    <%= @global_supul.current_hash %>
+  </li>
+
+  <li>
+    <strong>Incoming hash:</strong>
+    <%= @global_supul.incoming_hash %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.global_supul_show_path(@socket, :edit, @global_supul), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.global_supul_index_path(@socket, :index) %></span>

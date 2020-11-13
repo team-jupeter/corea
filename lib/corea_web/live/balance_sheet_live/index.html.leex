@@ -1,0 +1,35 @@
+<h1>Listing Balance sheets</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.BalanceSheetLive.FormComponent,
+    id: @balance_sheet.id || :new,
+    title: @page_title,
+    action: @live_action,
+    balance_sheet: @balance_sheet,
+    return_to: Routes.balance_sheet_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entity name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="balance_sheets">
+    <%= for balance_sheet <- @balance_sheets do %>
+      <tr id="balance_sheet-<%= balance_sheet.id %>">
+        <td><%= balance_sheet.entity_name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.balance_sheet_show_path(@socket, :show, balance_sheet) %></span>
+          <span><%= live_patch "Edit", to: Routes.balance_sheet_index_path(@socket, :edit, balance_sheet) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: balance_sheet.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Balance sheet", to: Routes.balance_sheet_index_path(@socket, :new) %></span>

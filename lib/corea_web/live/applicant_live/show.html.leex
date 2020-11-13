@@ -1,0 +1,22 @@
+<h1>Show Applicant</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.ApplicantLive.FormComponent,
+    id: @applicant.id,
+    title: @page_title,
+    action: @live_action,
+    applicant: @applicant,
+    return_to: Routes.applicant_show_path(@socket, :show, @applicant) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @applicant.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.applicant_show_path(@socket, :edit, @applicant), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.applicant_index_path(@socket, :index) %></span>

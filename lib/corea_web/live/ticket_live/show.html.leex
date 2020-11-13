@@ -1,0 +1,22 @@
+<h1>Show Ticket</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TicketLive.FormComponent,
+    id: @ticket.id,
+    title: @page_title,
+    action: @live_action,
+    ticket: @ticket,
+    return_to: Routes.ticket_show_path(@socket, :show, @ticket) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Departure:</strong>
+    <%= @ticket.departure %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.ticket_show_path(@socket, :edit, @ticket), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.ticket_index_path(@socket, :index) %></span>

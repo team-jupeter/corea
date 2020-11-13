@@ -1,0 +1,35 @@
+<h1>Listing Financial reports</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.FinancialReportLive.FormComponent,
+    id: @financial_report.id || :new,
+    title: @page_title,
+    action: @live_action,
+    financial_report: @financial_report,
+    return_to: Routes.financial_report_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entity name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="financial_reports">
+    <%= for financial_report <- @financial_reports do %>
+      <tr id="financial_report-<%= financial_report.id %>">
+        <td><%= financial_report.entity_name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.financial_report_show_path(@socket, :show, financial_report) %></span>
+          <span><%= live_patch "Edit", to: Routes.financial_report_index_path(@socket, :edit, financial_report) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: financial_report.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Financial report", to: Routes.financial_report_index_path(@socket, :new) %></span>

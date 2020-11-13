@@ -1,0 +1,22 @@
+<h1>Show Real estate</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.RealEstateLive.FormComponent,
+    id: @real_estate.id,
+    title: @page_title,
+    action: @live_action,
+    real_estate: @real_estate,
+    return_to: Routes.real_estate_show_path(@socket, :show, @real_estate) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Category:</strong>
+    <%= @real_estate.category %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.real_estate_show_path(@socket, :edit, @real_estate), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.real_estate_index_path(@socket, :index) %></span>

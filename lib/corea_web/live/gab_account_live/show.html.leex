@@ -1,0 +1,22 @@
+<h1>Show Gab account</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GABAccountLive.FormComponent,
+    id: @gab_account.id,
+    title: @page_title,
+    action: @live_action,
+    gab_account: @gab_account,
+    return_to: Routes.gab_account_show_path(@socket, :show, @gab_account) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Entity name:</strong>
+    <%= @gab_account.entity_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gab_account_show_path(@socket, :edit, @gab_account), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gab_account_index_path(@socket, :index) %></span>

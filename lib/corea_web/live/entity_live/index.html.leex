@@ -1,0 +1,37 @@
+<h1>Listing Entities</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.EntityLive.FormComponent,
+    id: @entity.id || :new,
+    title: @page_title,
+    action: @live_action,
+    entity: @entity,
+    return_to: Routes.entity_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="entities">
+    <%= for entity <- @entities do %>
+      <tr id="entity-<%= entity.id %>">
+        <td><%= entity.type %></td>
+        <td><%= entity.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.entity_show_path(@socket, :show, entity) %></span>
+          <span><%= live_patch "Edit", to: Routes.entity_index_path(@socket, :edit, entity) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: entity.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Entity", to: Routes.entity_index_path(@socket, :new) %></span>

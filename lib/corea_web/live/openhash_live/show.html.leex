@@ -1,0 +1,22 @@
+<h1>Show Openhash</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.OpenhashLive.FormComponent,
+    id: @openhash.id,
+    title: @page_title,
+    action: @live_action,
+    openhash: @openhash,
+    return_to: Routes.openhash_show_path(@socket, :show, @openhash) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Input email:</strong>
+    <%= @openhash.input_email %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.openhash_show_path(@socket, :edit, @openhash), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.openhash_index_path(@socket, :index) %></span>

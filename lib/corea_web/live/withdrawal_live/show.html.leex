@@ -1,0 +1,22 @@
+<h1>Show Withdrawal</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.WithdrawalLive.FormComponent,
+    id: @withdrawal.id,
+    title: @page_title,
+    action: @live_action,
+    withdrawal: @withdrawal,
+    return_to: Routes.withdrawal_show_path(@socket, :show, @withdrawal) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Amount:</strong>
+    <%= @withdrawal.amount %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.withdrawal_show_path(@socket, :edit, @withdrawal), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.withdrawal_index_path(@socket, :index) %></span>

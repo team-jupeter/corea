@@ -1,0 +1,22 @@
+<h1>Show Subject</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.SubjectLive.FormComponent,
+    id: @subject.id,
+    title: @page_title,
+    action: @live_action,
+    subject: @subject,
+    return_to: Routes.subject_show_path(@socket, :show, @subject) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Category:</strong>
+    <%= @subject.category %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.subject_show_path(@socket, :edit, @subject), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.subject_index_path(@socket, :index) %></span>

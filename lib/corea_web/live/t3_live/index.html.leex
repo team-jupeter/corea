@@ -1,0 +1,35 @@
+<h1>Listing T3s</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.T3Live.FormComponent,
+    id: @t3.id || :new,
+    title: @page_title,
+    action: @live_action,
+    t3: @t3,
+    return_to: Routes.t3_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="t3s">
+    <%= for t3 <- @t3s do %>
+      <tr id="t3-<%= t3.id %>">
+        <td><%= t3.input_name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.t3_show_path(@socket, :show, t3) %></span>
+          <span><%= live_patch "Edit", to: Routes.t3_index_path(@socket, :edit, t3) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: t3.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New T3", to: Routes.t3_index_path(@socket, :new) %></span>

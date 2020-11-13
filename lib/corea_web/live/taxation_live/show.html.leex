@@ -1,0 +1,42 @@
+<h1>Show Taxation</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TaxationLive.FormComponent,
+    id: @taxation.id,
+    title: @page_title,
+    action: @live_action,
+    taxation: @taxation,
+    return_to: Routes.taxation_show_path(@socket, :show, @taxation) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @taxation.name %>
+  </li>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @taxation.t1_balance %>
+  </li>
+
+  <li>
+    <strong>Auth code:</strong>
+    <%= @taxation.auth_code %>
+  </li>
+
+  <li>
+    <strong>Unique digits:</strong>
+    <%= @taxation.unique_digits %>
+  </li>
+
+  <li>
+    <strong>Telephones:</strong>
+    <%= @taxation.telephones %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.taxation_show_path(@socket, :edit, @taxation), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.taxation_index_path(@socket, :index) %></span>

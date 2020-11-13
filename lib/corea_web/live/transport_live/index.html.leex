@@ -1,0 +1,35 @@
+<h1>Listing Transports</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.TransportLive.FormComponent,
+    id: @transport.id || :new,
+    title: @page_title,
+    action: @live_action,
+    transport: @transport,
+    return_to: Routes.transport_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="transports">
+    <%= for transport <- @transports do %>
+      <tr id="transport-<%= transport.id %>">
+        <td><%= transport.type %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.transport_show_path(@socket, :show, transport) %></span>
+          <span><%= live_patch "Edit", to: Routes.transport_index_path(@socket, :edit, transport) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: transport.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Transport", to: Routes.transport_index_path(@socket, :new) %></span>

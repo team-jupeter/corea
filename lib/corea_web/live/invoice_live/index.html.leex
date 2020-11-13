@@ -1,0 +1,35 @@
+<h1>Listing Invoices</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.InvoiceLive.FormComponent,
+    id: @invoice.id || :new,
+    title: @page_title,
+    action: @live_action,
+    invoice: @invoice,
+    return_to: Routes.invoice_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Openhash</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="invoices">
+    <%= for invoice <- @invoices do %>
+      <tr id="invoice-<%= invoice.id %>">
+        <td><%= invoice.openhash %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.invoice_show_path(@socket, :show, invoice) %></span>
+          <span><%= live_patch "Edit", to: Routes.invoice_index_path(@socket, :edit, invoice) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: invoice.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Invoice", to: Routes.invoice_index_path(@socket, :new) %></span>

@@ -1,0 +1,57 @@
+<h1>Show Gab</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GABLive.FormComponent,
+    id: @gab.id,
+    title: @page_title,
+    action: @live_action,
+    gab: @gab,
+    return_to: Routes.gab_show_path(@socket, :show, @gab) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @gab.name %>
+  </li>
+
+  <li>
+    <strong>Unique digits:</strong>
+    <%= @gab.unique_digits %>
+  </li>
+
+  <li>
+    <strong>Telephones:</strong>
+    <%= @gab.telephones %>
+  </li>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @gab.t1_balance %>
+  </li>
+
+  <li>
+    <strong>T2 balance:</strong>
+    <%= @gab.t2_balance %>
+  </li>
+
+  <li>
+    <strong>T3 balance:</strong>
+    <%= @gab.t3_balance %>
+  </li>
+
+  <li>
+    <strong>T4 balance:</strong>
+    <%= @gab.t4_balance %>
+  </li>
+
+  <li>
+    <strong>T5 balance:</strong>
+    <%= @gab.t5_balance %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gab_show_path(@socket, :edit, @gab), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gab_index_path(@socket, :index) %></span>

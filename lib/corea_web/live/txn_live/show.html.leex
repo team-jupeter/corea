@@ -1,0 +1,22 @@
+<h1>Show Txn</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TxnLive.FormComponent,
+    id: @txn.id,
+    title: @page_title,
+    action: @live_action,
+    txn: @txn,
+    return_to: Routes.txn_show_path(@socket, :show, @txn) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @txn.type %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.txn_show_path(@socket, :edit, @txn), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.txn_index_path(@socket, :index) %></span>

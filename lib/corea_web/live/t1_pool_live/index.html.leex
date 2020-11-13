@@ -1,0 +1,35 @@
+<h1>Listing T1 pools</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.T1PoolLive.FormComponent,
+    id: @t1_pool.id || :new,
+    title: @page_title,
+    action: @live_action,
+    t1_pool: @t1_pool,
+    return_to: Routes.t1_pool_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="t1_pools">
+    <%= for t1_pool <- @t1_pools do %>
+      <tr id="t1_pool-<%= t1_pool.id %>">
+        <td><%= t1_pool.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.t1_pool_show_path(@socket, :show, t1_pool) %></span>
+          <span><%= live_patch "Edit", to: Routes.t1_pool_index_path(@socket, :edit, t1_pool) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: t1_pool.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New T1 pool", to: Routes.t1_pool_index_path(@socket, :new) %></span>

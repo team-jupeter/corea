@@ -1,0 +1,39 @@
+<h1>Listing Schools</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.SchoolLive.FormComponent,
+    id: @school.id || :new,
+    title: @page_title,
+    action: @live_action,
+    school: @school,
+    return_to: Routes.school_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Mentors</th>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="schools">
+    <%= for school <- @schools do %>
+      <tr id="school-<%= school.id %>">
+        <td><%= school.description %></td>
+        <td><%= school.mentors %></td>
+        <td><%= school.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.school_show_path(@socket, :show, school) %></span>
+          <span><%= live_patch "Edit", to: Routes.school_index_path(@socket, :edit, school) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: school.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New School", to: Routes.school_index_path(@socket, :new) %></span>

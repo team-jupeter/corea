@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "patent_application-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :applied_by %>
+  <%= text_input f, :applied_by %>
+  <%= error_tag f, :applied_by %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

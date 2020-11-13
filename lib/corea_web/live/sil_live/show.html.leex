@@ -1,0 +1,22 @@
+<h1>Show Sil</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.SilLive.FormComponent,
+    id: @sil.id,
+    title: @page_title,
+    action: @live_action,
+    sil: @sil,
+    return_to: Routes.sil_show_path(@socket, :show, @sil) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Current hash:</strong>
+    <%= @sil.current_hash %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.sil_show_path(@socket, :edit, @sil), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.sil_index_path(@socket, :index) %></span>

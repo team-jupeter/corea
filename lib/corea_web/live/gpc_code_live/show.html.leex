@@ -1,0 +1,32 @@
+<h1>Show Gpc code</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GPCCodeLive.FormComponent,
+    id: @gpc_code.id,
+    title: @page_title,
+    action: @live_action,
+    gpc_code: @gpc_code,
+    return_to: Routes.gpc_code_show_path(@socket, :show, @gpc_code) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Code:</strong>
+    <%= @gpc_code.code %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @gpc_code.name %>
+  </li>
+
+  <li>
+    <strong>Standard:</strong>
+    <%= @gpc_code.standard %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gpc_code_show_path(@socket, :edit, @gpc_code), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gpc_code_index_path(@socket, :index) %></span>

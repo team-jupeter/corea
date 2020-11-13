@@ -1,0 +1,22 @@
+<h1>Show T5</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.T5Live.FormComponent,
+    id: @t5.id,
+    title: @page_title,
+    action: @live_action,
+    t5: @t5,
+    return_to: Routes.t5_show_path(@socket, :show, @t5) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Input name:</strong>
+    <%= @t5.input_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.t5_show_path(@socket, :edit, @t5), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.t5_index_path(@socket, :index) %></span>

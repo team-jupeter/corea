@@ -1,0 +1,35 @@
+<h1>Listing Equity statements</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.EquityStatementLive.FormComponent,
+    id: @equity_statement.id || :new,
+    title: @page_title,
+    action: @live_action,
+    equity_statement: @equity_statement,
+    return_to: Routes.equity_statement_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Monetary unit</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="equity_statements">
+    <%= for equity_statement <- @equity_statements do %>
+      <tr id="equity_statement-<%= equity_statement.id %>">
+        <td><%= equity_statement.monetary_unit %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.equity_statement_show_path(@socket, :show, equity_statement) %></span>
+          <span><%= live_patch "Edit", to: Routes.equity_statement_index_path(@socket, :edit, equity_statement) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: equity_statement.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Equity statement", to: Routes.equity_statement_index_path(@socket, :new) %></span>

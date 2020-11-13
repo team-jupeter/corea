@@ -1,0 +1,22 @@
+<h1>Show Financial account</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.FinancialAccountLive.FormComponent,
+    id: @financial_account.id,
+    title: @page_title,
+    action: @live_action,
+    financial_account: @financial_account,
+    return_to: Routes.financial_account_show_path(@socket, :show, @financial_account) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Left:</strong>
+    <%= @financial_account.left %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.financial_account_show_path(@socket, :edit, @financial_account), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.financial_account_index_path(@socket, :index) %></span>

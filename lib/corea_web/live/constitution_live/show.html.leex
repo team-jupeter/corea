@@ -1,0 +1,42 @@
+<h1>Show Constitution</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.ConstitutionLive.FormComponent,
+    id: @constitution.id,
+    title: @page_title,
+    action: @live_action,
+    constitution: @constitution,
+    return_to: Routes.constitution_show_path(@socket, :show, @constitution) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Nationality:</strong>
+    <%= @constitution.nationality %>
+  </li>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @constitution.content %>
+  </li>
+
+  <li>
+    <strong>Content hash:</strong>
+    <%= @constitution.content_hash %>
+  </li>
+
+  <li>
+    <strong>Empowered on:</strong>
+    <%= @constitution.empowered_on %>
+  </li>
+
+  <li>
+    <strong>Sighed by:</strong>
+    <%= @constitution.sighed_by %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.constitution_show_path(@socket, :edit, @constitution), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.constitution_index_path(@socket, :index) %></span>

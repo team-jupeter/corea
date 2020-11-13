@@ -1,0 +1,22 @@
+<h1>Show Wedding</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.WeddingLive.FormComponent,
+    id: @wedding.id,
+    title: @page_title,
+    action: @live_action,
+    wedding: @wedding,
+    return_to: Routes.wedding_show_path(@socket, :show, @wedding) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Bride:</strong>
+    <%= @wedding.bride %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.wedding_show_path(@socket, :edit, @wedding), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.wedding_index_path(@socket, :index) %></span>

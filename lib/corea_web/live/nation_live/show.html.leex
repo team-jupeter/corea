@@ -1,0 +1,27 @@
+<h1>Show Nation</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.NationLive.FormComponent,
+    id: @nation.id,
+    title: @page_title,
+    action: @live_action,
+    nation: @nation,
+    return_to: Routes.nation_show_path(@socket, :show, @nation) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @nation.name %>
+  </li>
+
+  <li>
+    <strong>Constitution signature:</strong>
+    <%= @nation.constitution_signature %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.nation_show_path(@socket, :edit, @nation), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.nation_index_path(@socket, :index) %></span>

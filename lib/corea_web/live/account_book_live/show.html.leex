@@ -1,0 +1,22 @@
+<h1>Show Account book</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.AccountBookLive.FormComponent,
+    id: @account_book.id,
+    title: @page_title,
+    action: @live_action,
+    account_book: @account_book,
+    return_to: Routes.account_book_show_path(@socket, :show, @account_book) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Monetary unit:</strong>
+    <%= @account_book.monetary_unit %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.account_book_show_path(@socket, :edit, @account_book), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.account_book_index_path(@socket, :index) %></span>

@@ -1,0 +1,35 @@
+<h1>Listing Machines</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.MachineLive.FormComponent,
+    id: @machine.id || :new,
+    title: @page_title,
+    action: @live_action,
+    machine: @machine,
+    return_to: Routes.machine_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="machines">
+    <%= for machine <- @machines do %>
+      <tr id="machine-<%= machine.id %>">
+        <td><%= machine.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.machine_show_path(@socket, :show, machine) %></span>
+          <span><%= live_patch "Edit", to: Routes.machine_index_path(@socket, :edit, machine) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: machine.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Machine", to: Routes.machine_index_path(@socket, :new) %></span>

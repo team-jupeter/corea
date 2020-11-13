@@ -1,0 +1,22 @@
+<h1>Show Rule</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.RuleLive.FormComponent,
+    id: @rule.id,
+    title: @page_title,
+    action: @live_action,
+    rule: @rule,
+    return_to: Routes.rule_show_path(@socket, :show, @rule) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @rule.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.rule_show_path(@socket, :edit, @rule), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.rule_index_path(@socket, :index) %></span>

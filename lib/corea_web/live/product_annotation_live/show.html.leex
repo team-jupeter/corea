@@ -1,0 +1,22 @@
+<h1>Show Product annotation</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.ProductAnnotationLive.FormComponent,
+    id: @product_annotation.id,
+    title: @page_title,
+    action: @live_action,
+    product_annotation: @product_annotation,
+    return_to: Routes.product_annotation_show_path(@socket, :show, @product_annotation) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @product_annotation.body %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.product_annotation_show_path(@socket, :edit, @product_annotation), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.product_annotation_index_path(@socket, :index) %></span>

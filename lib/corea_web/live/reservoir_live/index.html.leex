@@ -1,0 +1,35 @@
+<h1>Listing Reservoirs</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.ReservoirLive.FormComponent,
+    id: @reservoir.id || :new,
+    title: @page_title,
+    action: @live_action,
+    reservoir: @reservoir,
+    return_to: Routes.reservoir_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Abc t1</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="reservoirs">
+    <%= for reservoir <- @reservoirs do %>
+      <tr id="reservoir-<%= reservoir.id %>">
+        <td><%= reservoir.abc_t1 %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.reservoir_show_path(@socket, :show, reservoir) %></span>
+          <span><%= live_patch "Edit", to: Routes.reservoir_index_path(@socket, :edit, reservoir) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: reservoir.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Reservoir", to: Routes.reservoir_index_path(@socket, :new) %></span>

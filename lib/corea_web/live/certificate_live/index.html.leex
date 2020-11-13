@@ -1,0 +1,35 @@
+<h1>Listing Certificates</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.CertificateLive.FormComponent,
+    id: @certificate.id || :new,
+    title: @page_title,
+    action: @live_action,
+    certificate: @certificate,
+    return_to: Routes.certificate_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="certificates">
+    <%= for certificate <- @certificates do %>
+      <tr id="certificate-<%= certificate.id %>">
+        <td><%= certificate.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.certificate_show_path(@socket, :show, certificate) %></span>
+          <span><%= live_patch "Edit", to: Routes.certificate_index_path(@socket, :edit, certificate) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: certificate.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Certificate", to: Routes.certificate_index_path(@socket, :new) %></span>

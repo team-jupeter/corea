@@ -1,0 +1,22 @@
+<h1>Show Financial report</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.FinancialReportLive.FormComponent,
+    id: @financial_report.id,
+    title: @page_title,
+    action: @live_action,
+    financial_report: @financial_report,
+    return_to: Routes.financial_report_show_path(@socket, :show, @financial_report) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Entity name:</strong>
+    <%= @financial_report.entity_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.financial_report_show_path(@socket, :edit, @financial_report), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.financial_report_index_path(@socket, :index) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Balance sheet</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.BalanceSheetLive.FormComponent,
+    id: @balance_sheet.id,
+    title: @page_title,
+    action: @live_action,
+    balance_sheet: @balance_sheet,
+    return_to: Routes.balance_sheet_show_path(@socket, :show, @balance_sheet) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Entity name:</strong>
+    <%= @balance_sheet.entity_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.balance_sheet_show_path(@socket, :edit, @balance_sheet), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.balance_sheet_index_path(@socket, :index) %></span>

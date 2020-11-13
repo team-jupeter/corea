@@ -1,0 +1,35 @@
+<h1>Listing Prescriptions</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.PrescriptionLive.FormComponent,
+    id: @prescription.id || :new,
+    title: @page_title,
+    action: @live_action,
+    prescription: @prescription,
+    return_to: Routes.prescription_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Doctor</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="prescriptions">
+    <%= for prescription <- @prescriptions do %>
+      <tr id="prescription-<%= prescription.id %>">
+        <td><%= prescription.doctor %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.prescription_show_path(@socket, :show, prescription) %></span>
+          <span><%= live_patch "Edit", to: Routes.prescription_index_path(@socket, :edit, prescription) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: prescription.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Prescription", to: Routes.prescription_index_path(@socket, :new) %></span>

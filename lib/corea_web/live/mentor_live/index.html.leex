@@ -1,0 +1,35 @@
+<h1>Listing Mentors</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.MentorLive.FormComponent,
+    id: @mentor.id || :new,
+    title: @page_title,
+    action: @live_action,
+    mentor: @mentor,
+    return_to: Routes.mentor_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="mentors">
+    <%= for mentor <- @mentors do %>
+      <tr id="mentor-<%= mentor.id %>">
+        <td><%= mentor.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.mentor_show_path(@socket, :show, mentor) %></span>
+          <span><%= live_patch "Edit", to: Routes.mentor_index_path(@socket, :edit, mentor) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: mentor.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Mentor", to: Routes.mentor_index_path(@socket, :new) %></span>

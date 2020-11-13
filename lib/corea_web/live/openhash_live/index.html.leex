@@ -1,0 +1,35 @@
+<h1>Listing Openhashes</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.OpenhashLive.FormComponent,
+    id: @openhash.id || :new,
+    title: @page_title,
+    action: @live_action,
+    openhash: @openhash,
+    return_to: Routes.openhash_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input email</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="openhashes">
+    <%= for openhash <- @openhashes do %>
+      <tr id="openhash-<%= openhash.id %>">
+        <td><%= openhash.input_email %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.openhash_show_path(@socket, :show, openhash) %></span>
+          <span><%= live_patch "Edit", to: Routes.openhash_index_path(@socket, :edit, openhash) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: openhash.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Openhash", to: Routes.openhash_index_path(@socket, :new) %></span>

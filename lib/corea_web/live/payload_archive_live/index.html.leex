@@ -1,0 +1,35 @@
+<h1>Listing Payload archives</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.PayloadArchiveLive.FormComponent,
+    id: @payload_archive.id || :new,
+    title: @page_title,
+    action: @live_action,
+    payload_archive: @payload_archive,
+    return_to: Routes.payload_archive_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="payload_archives">
+    <%= for payload_archive <- @payload_archives do %>
+      <tr id="payload_archive-<%= payload_archive.id %>">
+        <td><%= payload_archive.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.payload_archive_show_path(@socket, :show, payload_archive) %></span>
+          <span><%= live_patch "Edit", to: Routes.payload_archive_index_path(@socket, :edit, payload_archive) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: payload_archive.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Payload archive", to: Routes.payload_archive_index_path(@socket, :new) %></span>

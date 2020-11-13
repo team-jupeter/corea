@@ -1,0 +1,35 @@
+<h1>Listing Ordinances</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.OrdinanceLive.FormComponent,
+    id: @ordinance.id || :new,
+    title: @page_title,
+    action: @live_action,
+    ordinance: @ordinance,
+    return_to: Routes.ordinance_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="ordinances">
+    <%= for ordinance <- @ordinances do %>
+      <tr id="ordinance-<%= ordinance.id %>">
+        <td><%= ordinance.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.ordinance_show_path(@socket, :show, ordinance) %></span>
+          <span><%= live_patch "Edit", to: Routes.ordinance_index_path(@socket, :edit, ordinance) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: ordinance.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Ordinance", to: Routes.ordinance_index_path(@socket, :new) %></span>

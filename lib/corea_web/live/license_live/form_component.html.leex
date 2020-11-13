@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "license-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :issued_by %>
+  <%= text_input f, :issued_by %>
+  <%= error_tag f, :issued_by %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

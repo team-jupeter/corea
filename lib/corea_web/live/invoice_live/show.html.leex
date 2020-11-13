@@ -1,0 +1,22 @@
+<h1>Show Invoice</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.InvoiceLive.FormComponent,
+    id: @invoice.id,
+    title: @page_title,
+    action: @live_action,
+    invoice: @invoice,
+    return_to: Routes.invoice_show_path(@socket, :show, @invoice) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Openhash:</strong>
+    <%= @invoice.openhash %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.invoice_show_path(@socket, :edit, @invoice), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.invoice_index_path(@socket, :index) %></span>

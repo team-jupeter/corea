@@ -1,0 +1,35 @@
+<h1>Listing Subjects</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.SubjectLive.FormComponent,
+    id: @subject.id || :new,
+    title: @page_title,
+    action: @live_action,
+    subject: @subject,
+    return_to: Routes.subject_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="subjects">
+    <%= for subject <- @subjects do %>
+      <tr id="subject-<%= subject.id %>">
+        <td><%= subject.category %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.subject_show_path(@socket, :show, subject) %></span>
+          <span><%= live_patch "Edit", to: Routes.subject_index_path(@socket, :edit, subject) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: subject.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Subject", to: Routes.subject_index_path(@socket, :new) %></span>

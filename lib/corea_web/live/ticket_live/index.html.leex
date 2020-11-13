@@ -1,0 +1,35 @@
+<h1>Listing Tickets</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.TicketLive.FormComponent,
+    id: @ticket.id || :new,
+    title: @page_title,
+    action: @live_action,
+    ticket: @ticket,
+    return_to: Routes.ticket_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Departure</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tickets">
+    <%= for ticket <- @tickets do %>
+      <tr id="ticket-<%= ticket.id %>">
+        <td><%= ticket.departure %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.ticket_show_path(@socket, :show, ticket) %></span>
+          <span><%= live_patch "Edit", to: Routes.ticket_index_path(@socket, :edit, ticket) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: ticket.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Ticket", to: Routes.ticket_index_path(@socket, :new) %></span>

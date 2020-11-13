@@ -1,0 +1,22 @@
+<h1>Show Equity statement</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.EquityStatementLive.FormComponent,
+    id: @equity_statement.id,
+    title: @page_title,
+    action: @live_action,
+    equity_statement: @equity_statement,
+    return_to: Routes.equity_statement_show_path(@socket, :show, @equity_statement) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Monetary unit:</strong>
+    <%= @equity_statement.monetary_unit %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.equity_statement_show_path(@socket, :edit, @equity_statement), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.equity_statement_index_path(@socket, :index) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Money pool</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.MoneyPoolLive.FormComponent,
+    id: @money_pool.id,
+    title: @page_title,
+    action: @live_action,
+    money_pool: @money_pool,
+    return_to: Routes.money_pool_show_path(@socket, :show, @money_pool) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1:</strong>
+    <%= @money_pool.t1 %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.money_pool_show_path(@socket, :edit, @money_pool), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.money_pool_index_path(@socket, :index) %></span>

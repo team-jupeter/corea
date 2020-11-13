@@ -1,0 +1,35 @@
+<h1>Listing Metabolic panels</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.MetabolicPanelLive.FormComponent,
+    id: @metabolic_panel.id || :new,
+    title: @page_title,
+    action: @live_action,
+    metabolic_panel: @metabolic_panel,
+    return_to: Routes.metabolic_panel_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="metabolic_panels">
+    <%= for metabolic_panel <- @metabolic_panels do %>
+      <tr id="metabolic_panel-<%= metabolic_panel.id %>">
+        <td><%= metabolic_panel.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.metabolic_panel_show_path(@socket, :show, metabolic_panel) %></span>
+          <span><%= live_patch "Edit", to: Routes.metabolic_panel_index_path(@socket, :edit, metabolic_panel) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: metabolic_panel.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Metabolic panel", to: Routes.metabolic_panel_index_path(@socket, :new) %></span>

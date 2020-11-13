@@ -1,0 +1,22 @@
+<h1>Show Cf statement</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.CFStatementLive.FormComponent,
+    id: @cf_statement.id,
+    title: @page_title,
+    action: @live_action,
+    cf_statement: @cf_statement,
+    return_to: Routes.cf_statement_show_path(@socket, :show, @cf_statement) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Entity name:</strong>
+    <%= @cf_statement.entity_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.cf_statement_show_path(@socket, :edit, @cf_statement), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.cf_statement_index_path(@socket, :index) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Course</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.CourseLive.FormComponent,
+    id: @course.id,
+    title: @page_title,
+    action: @live_action,
+    course: @course,
+    return_to: Routes.course_show_path(@socket, :show, @course) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @course.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.course_show_path(@socket, :edit, @course), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.course_index_path(@socket, :index) %></span>

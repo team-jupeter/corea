@@ -1,0 +1,35 @@
+<h1>Listing Invoice items</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.InvoiceItemLive.FormComponent,
+    id: @invoice_item.id || :new,
+    title: @page_title,
+    action: @live_action,
+    invoice_item: @invoice_item,
+    return_to: Routes.invoice_item_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="invoice_items">
+    <%= for invoice_item <- @invoice_items do %>
+      <tr id="invoice_item-<%= invoice_item.id %>">
+        <td><%= invoice_item.item_name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.invoice_item_show_path(@socket, :show, invoice_item) %></span>
+          <span><%= live_patch "Edit", to: Routes.invoice_item_index_path(@socket, :edit, invoice_item) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: invoice_item.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Invoice item", to: Routes.invoice_item_index_path(@socket, :new) %></span>

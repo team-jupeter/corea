@@ -1,0 +1,22 @@
+<h1>Show Report</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.ReportLive.FormComponent,
+    id: @report.id,
+    title: @page_title,
+    action: @live_action,
+    report: @report,
+    return_to: Routes.report_show_path(@socket, :show, @report) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @report.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.report_show_path(@socket, :edit, @report), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.report_index_path(@socket, :index) %></span>

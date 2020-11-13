@@ -1,0 +1,107 @@
+<h1>Show Supul</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.SupulLive.FormComponent,
+    id: @supul.id,
+    title: @page_title,
+    action: @live_action,
+    supul: @supul,
+    return_to: Routes.supul_show_path(@socket, :show, @supul) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @supul.t1_balance %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @supul.type %>
+  </li>
+
+  <li>
+    <strong>Txn:</strong>
+    <%= @supul.txn_id %>
+  </li>
+
+  <li>
+    <strong>Supul code:</strong>
+    <%= @supul.supul_code %>
+  </li>
+
+  <li>
+    <strong>Supul name:</strong>
+    <%= @supul.supul_name %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @supul.name %>
+  </li>
+
+  <li>
+    <strong>State name:</strong>
+    <%= @supul.state_name %>
+  </li>
+
+  <li>
+    <strong>Nation name:</strong>
+    <%= @supul.nation_name %>
+  </li>
+
+  <li>
+    <strong>Geographical area:</strong>
+    <%= @supul.geographical_area %>
+  </li>
+
+  <li>
+    <strong>Auth code:</strong>
+    <%= @supul.auth_code %>
+  </li>
+
+  <li>
+    <strong>Event sender:</strong>
+    <%= @supul.event_sender %>
+  </li>
+
+  <li>
+    <strong>Hash count:</strong>
+    <%= @supul.hash_count %>
+  </li>
+
+  <li>
+    <strong>Hash chain:</strong>
+    <%= @supul.hash_chain %>
+  </li>
+
+  <li>
+    <strong>Openhash box:</strong>
+    <%= @supul.openhash_box %>
+  </li>
+
+  <li>
+    <strong>Current hash:</strong>
+    <%= @supul.current_hash %>
+  </li>
+
+  <li>
+    <strong>Incoming hash:</strong>
+    <%= @supul.incoming_hash %>
+  </li>
+
+  <li>
+    <strong>Previous hash:</strong>
+    <%= @supul.previous_hash %>
+  </li>
+
+  <li>
+    <strong>State openhash:</strong>
+    <%= @supul.state_openhash_id %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.supul_show_path(@socket, :edit, @supul), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.supul_index_path(@socket, :index) %></span>

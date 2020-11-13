@@ -1,0 +1,35 @@
+<h1>Listing Account books</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.AccountBookLive.FormComponent,
+    id: @account_book.id || :new,
+    title: @page_title,
+    action: @live_action,
+    account_book: @account_book,
+    return_to: Routes.account_book_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Monetary unit</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="account_books">
+    <%= for account_book <- @account_books do %>
+      <tr id="account_book-<%= account_book.id %>">
+        <td><%= account_book.monetary_unit %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.account_book_show_path(@socket, :show, account_book) %></span>
+          <span><%= live_patch "Edit", to: Routes.account_book_index_path(@socket, :edit, account_book) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: account_book.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Account book", to: Routes.account_book_index_path(@socket, :new) %></span>

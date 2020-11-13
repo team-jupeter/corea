@@ -1,0 +1,22 @@
+<h1>Show Fair trade</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.FairTradeLive.FormComponent,
+    id: @fair_trade.id,
+    title: @page_title,
+    action: @live_action,
+    fair_trade: @fair_trade,
+    return_to: Routes.fair_trade_show_path(@socket, :show, @fair_trade) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Fair?:</strong>
+    <%= @fair_trade.fair? %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.fair_trade_show_path(@socket, :edit, @fair_trade), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.fair_trade_index_path(@socket, :index) %></span>

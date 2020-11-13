@@ -1,0 +1,51 @@
+<h1>Listing State supuls</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.StateSupulLive.FormComponent,
+    id: @state_supul.id || :new,
+    title: @page_title,
+    action: @live_action,
+    state_supul: @state_supul,
+    return_to: Routes.state_supul_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>T1 balance</th>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Auth code</th>
+      <th>Hash count</th>
+      <th>Hash chain</th>
+      <th>Openhash box</th>
+      <th>Current hash</th>
+      <th>Incoming hash</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="state_supuls">
+    <%= for state_supul <- @state_supuls do %>
+      <tr id="state_supul-<%= state_supul.id %>">
+        <td><%= state_supul.t1_balance %></td>
+        <td><%= state_supul.type %></td>
+        <td><%= state_supul.name %></td>
+        <td><%= state_supul.auth_code %></td>
+        <td><%= state_supul.hash_count %></td>
+        <td><%= state_supul.hash_chain %></td>
+        <td><%= state_supul.openhash_box %></td>
+        <td><%= state_supul.current_hash %></td>
+        <td><%= state_supul.incoming_hash %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.state_supul_show_path(@socket, :show, state_supul) %></span>
+          <span><%= live_patch "Edit", to: Routes.state_supul_index_path(@socket, :edit, state_supul) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: state_supul.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New State supul", to: Routes.state_supul_index_path(@socket, :new) %></span>

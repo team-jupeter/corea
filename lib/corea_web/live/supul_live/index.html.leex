@@ -1,0 +1,69 @@
+<h1>Listing Supuls</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.SupulLive.FormComponent,
+    id: @supul.id || :new,
+    title: @page_title,
+    action: @live_action,
+    supul: @supul,
+    return_to: Routes.supul_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>T1 balance</th>
+      <th>Type</th>
+      <th>Txn</th>
+      <th>Supul code</th>
+      <th>Supul name</th>
+      <th>Name</th>
+      <th>State name</th>
+      <th>Nation name</th>
+      <th>Geographical area</th>
+      <th>Auth code</th>
+      <th>Event sender</th>
+      <th>Hash count</th>
+      <th>Hash chain</th>
+      <th>Openhash box</th>
+      <th>Current hash</th>
+      <th>Incoming hash</th>
+      <th>Previous hash</th>
+      <th>State openhash</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="supuls">
+    <%= for supul <- @supuls do %>
+      <tr id="supul-<%= supul.id %>">
+        <td><%= supul.t1_balance %></td>
+        <td><%= supul.type %></td>
+        <td><%= supul.txn_id %></td>
+        <td><%= supul.supul_code %></td>
+        <td><%= supul.supul_name %></td>
+        <td><%= supul.name %></td>
+        <td><%= supul.state_name %></td>
+        <td><%= supul.nation_name %></td>
+        <td><%= supul.geographical_area %></td>
+        <td><%= supul.auth_code %></td>
+        <td><%= supul.event_sender %></td>
+        <td><%= supul.hash_count %></td>
+        <td><%= supul.hash_chain %></td>
+        <td><%= supul.openhash_box %></td>
+        <td><%= supul.current_hash %></td>
+        <td><%= supul.incoming_hash %></td>
+        <td><%= supul.previous_hash %></td>
+        <td><%= supul.state_openhash_id %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.supul_show_path(@socket, :show, supul) %></span>
+          <span><%= live_patch "Edit", to: Routes.supul_index_path(@socket, :edit, supul) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: supul.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Supul", to: Routes.supul_index_path(@socket, :new) %></span>

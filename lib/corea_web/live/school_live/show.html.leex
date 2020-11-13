@@ -1,0 +1,32 @@
+<h1>Show School</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.SchoolLive.FormComponent,
+    id: @school.id,
+    title: @page_title,
+    action: @live_action,
+    school: @school,
+    return_to: Routes.school_show_path(@socket, :show, @school) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @school.description %>
+  </li>
+
+  <li>
+    <strong>Mentors:</strong>
+    <%= @school.mentors %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @school.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.school_show_path(@socket, :edit, @school), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.school_index_path(@socket, :index) %></span>

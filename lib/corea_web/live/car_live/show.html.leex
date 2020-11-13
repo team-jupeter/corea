@@ -1,0 +1,22 @@
+<h1>Show Car</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.CarLive.FormComponent,
+    id: @car.id,
+    title: @page_title,
+    action: @live_action,
+    car: @car,
+    return_to: Routes.car_show_path(@socket, :show, @car) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @car.type %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.car_show_path(@socket, :edit, @car), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.car_index_path(@socket, :index) %></span>

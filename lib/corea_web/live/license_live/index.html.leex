@@ -1,0 +1,35 @@
+<h1>Listing Licenses</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.LicenseLive.FormComponent,
+    id: @license.id || :new,
+    title: @page_title,
+    action: @live_action,
+    license: @license,
+    return_to: Routes.license_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Issued by</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="licenses">
+    <%= for license <- @licenses do %>
+      <tr id="license-<%= license.id %>">
+        <td><%= license.issued_by %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.license_show_path(@socket, :show, license) %></span>
+          <span><%= live_patch "Edit", to: Routes.license_index_path(@socket, :edit, license) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: license.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New License", to: Routes.license_index_path(@socket, :new) %></span>

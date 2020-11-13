@@ -1,0 +1,22 @@
+<h1>Show Disease control</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.DiseaseControlLive.FormComponent,
+    id: @disease_control.id,
+    title: @page_title,
+    action: @live_action,
+    disease_control: @disease_control,
+    return_to: Routes.disease_control_show_path(@socket, :show, @disease_control) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Nationality:</strong>
+    <%= @disease_control.nationality %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.disease_control_show_path(@socket, :edit, @disease_control), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.disease_control_index_path(@socket, :index) %></span>

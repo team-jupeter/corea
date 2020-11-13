@@ -1,0 +1,61 @@
+<h1>Listing Nation supuls</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.NationSupulLive.FormComponent,
+    id: @nation_supul.id || :new,
+    title: @page_title,
+    action: @live_action,
+    nation_supul: @nation_supul,
+    return_to: Routes.nation_supul_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>T1 balance</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Nation supul code</th>
+      <th>Nation name</th>
+      <th>Auth code</th>
+      <th>Hash count</th>
+      <th>Hash chain</th>
+      <th>Openhash box</th>
+      <th>Current hash</th>
+      <th>Incoming hash</th>
+      <th>Previous hash</th>
+      <th>Global openhash</th>
+      <th>Sender</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="nation_supuls">
+    <%= for nation_supul <- @nation_supuls do %>
+      <tr id="nation_supul-<%= nation_supul.id %>">
+        <td><%= nation_supul.t1_balance %></td>
+        <td><%= nation_supul.name %></td>
+        <td><%= nation_supul.type %></td>
+        <td><%= nation_supul.nation_supul_code %></td>
+        <td><%= nation_supul.nation_name %></td>
+        <td><%= nation_supul.auth_code %></td>
+        <td><%= nation_supul.hash_count %></td>
+        <td><%= nation_supul.hash_chain %></td>
+        <td><%= nation_supul.openhash_box %></td>
+        <td><%= nation_supul.current_hash %></td>
+        <td><%= nation_supul.incoming_hash %></td>
+        <td><%= nation_supul.previous_hash %></td>
+        <td><%= nation_supul.global_openhash_id %></td>
+        <td><%= nation_supul.sender %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.nation_supul_show_path(@socket, :show, nation_supul) %></span>
+          <span><%= live_patch "Edit", to: Routes.nation_supul_index_path(@socket, :edit, nation_supul) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: nation_supul.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Nation supul", to: Routes.nation_supul_index_path(@socket, :new) %></span>

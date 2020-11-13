@@ -1,0 +1,22 @@
+<h1>Show T4</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.T4Live.FormComponent,
+    id: @t4.id,
+    title: @page_title,
+    action: @live_action,
+    t4: @t4,
+    return_to: Routes.t4_show_path(@socket, :show, @t4) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Input name:</strong>
+    <%= @t4.input_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.t4_show_path(@socket, :edit, @t4), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.t4_index_path(@socket, :index) %></span>

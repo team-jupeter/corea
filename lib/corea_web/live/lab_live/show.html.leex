@@ -1,0 +1,22 @@
+<h1>Show Lab</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.LabLive.FormComponent,
+    id: @lab.id,
+    title: @page_title,
+    action: @live_action,
+    lab: @lab,
+    return_to: Routes.lab_show_path(@socket, :show, @lab) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @lab.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.lab_show_path(@socket, :edit, @lab), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.lab_index_path(@socket, :index) %></span>

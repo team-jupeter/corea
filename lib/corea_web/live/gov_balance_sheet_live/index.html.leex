@@ -1,0 +1,35 @@
+<h1>Listing Gov balance sheets</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.GovBalanceSheetLive.FormComponent,
+    id: @gov_balance_sheet.id || :new,
+    title: @page_title,
+    action: @live_action,
+    gov_balance_sheet: @gov_balance_sheet,
+    return_to: Routes.gov_balance_sheet_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Monetary unit</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="gov_balance_sheets">
+    <%= for gov_balance_sheet <- @gov_balance_sheets do %>
+      <tr id="gov_balance_sheet-<%= gov_balance_sheet.id %>">
+        <td><%= gov_balance_sheet.monetary_unit %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.gov_balance_sheet_show_path(@socket, :show, gov_balance_sheet) %></span>
+          <span><%= live_patch "Edit", to: Routes.gov_balance_sheet_index_path(@socket, :edit, gov_balance_sheet) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: gov_balance_sheet.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Gov balance sheet", to: Routes.gov_balance_sheet_index_path(@socket, :new) %></span>

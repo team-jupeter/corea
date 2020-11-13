@@ -1,0 +1,22 @@
+<h1>Show Color code</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.ColorCodeLive.FormComponent,
+    id: @color_code.id,
+    title: @page_title,
+    action: @live_action,
+    color_code: @color_code,
+    return_to: Routes.color_code_show_path(@socket, :show, @color_code) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Char 1:</strong>
+    <%= @color_code.char_1 %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.color_code_show_path(@socket, :edit, @color_code), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.color_code_index_path(@socket, :index) %></span>

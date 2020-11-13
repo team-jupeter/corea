@@ -1,0 +1,49 @@
+<h1>Listing Families</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.FamilyLive.FormComponent,
+    id: @family.id || :new,
+    title: @page_title,
+    action: @live_action,
+    family: @family,
+    return_to: Routes.family_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>T1 balance</th>
+      <th>Family code</th>
+      <th>Nationality</th>
+      <th>Auth code</th>
+      <th>Address</th>
+      <th>House holder name</th>
+      <th>House holder email</th>
+      <th>House holder supul</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="families">
+    <%= for family <- @families do %>
+      <tr id="family-<%= family.id %>">
+        <td><%= family.t1_balance %></td>
+        <td><%= family.family_code %></td>
+        <td><%= family.nationality %></td>
+        <td><%= family.auth_code %></td>
+        <td><%= family.address %></td>
+        <td><%= family.house_holder_name %></td>
+        <td><%= family.house_holder_email %></td>
+        <td><%= family.house_holder_supul_id %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.family_show_path(@socket, :show, family) %></span>
+          <span><%= live_patch "Edit", to: Routes.family_index_path(@socket, :edit, family) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: family.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Family", to: Routes.family_index_path(@socket, :new) %></span>

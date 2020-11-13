@@ -1,0 +1,35 @@
+<h1>Listing Deposits</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.DepositLive.FormComponent,
+    id: @deposit.id || :new,
+    title: @page_title,
+    action: @live_action,
+    deposit: @deposit,
+    return_to: Routes.deposit_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Typel</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="deposits">
+    <%= for deposit <- @deposits do %>
+      <tr id="deposit-<%= deposit.id %>">
+        <td><%= deposit.typel %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.deposit_show_path(@socket, :show, deposit) %></span>
+          <span><%= live_patch "Edit", to: Routes.deposit_index_path(@socket, :edit, deposit) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: deposit.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Deposit", to: Routes.deposit_index_path(@socket, :new) %></span>

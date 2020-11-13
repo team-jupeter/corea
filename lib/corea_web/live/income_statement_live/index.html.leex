@@ -1,0 +1,35 @@
+<h1>Listing Income statements</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.IncomeStatementLive.FormComponent,
+    id: @income_statement.id || :new,
+    title: @page_title,
+    action: @live_action,
+    income_statement: @income_statement,
+    return_to: Routes.income_statement_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entity name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="income_statements">
+    <%= for income_statement <- @income_statements do %>
+      <tr id="income_statement-<%= income_statement.id %>">
+        <td><%= income_statement.entity_name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.income_statement_show_path(@socket, :show, income_statement) %></span>
+          <span><%= live_patch "Edit", to: Routes.income_statement_index_path(@socket, :edit, income_statement) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: income_statement.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Income statement", to: Routes.income_statement_index_path(@socket, :new) %></span>

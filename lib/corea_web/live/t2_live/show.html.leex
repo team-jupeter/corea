@@ -1,0 +1,22 @@
+<h1>Show T2</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.T2Live.FormComponent,
+    id: @t2.id,
+    title: @page_title,
+    action: @live_action,
+    t2: @t2,
+    return_to: Routes.t2_show_path(@socket, :show, @t2) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Input name:</strong>
+    <%= @t2.input_name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.t2_show_path(@socket, :edit, @t2), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.t2_index_path(@socket, :index) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Bio datum</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.BioDatumLive.FormComponent,
+    id: @bio_datum.id,
+    title: @page_title,
+    action: @live_action,
+    bio_datum: @bio_datum,
+    return_to: Routes.bio_datum_show_path(@socket, :show, @bio_datum) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Dna:</strong>
+    <%= @bio_datum.dna %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.bio_datum_show_path(@socket, :edit, @bio_datum), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.bio_datum_index_path(@socket, :index) %></span>

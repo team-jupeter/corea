@@ -1,0 +1,35 @@
+<h1>Listing Courses</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.CourseLive.FormComponent,
+    id: @course.id || :new,
+    title: @page_title,
+    action: @live_action,
+    course: @course,
+    return_to: Routes.course_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="courses">
+    <%= for course <- @courses do %>
+      <tr id="course-<%= course.id %>">
+        <td><%= course.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.course_show_path(@socket, :show, course) %></span>
+          <span><%= live_patch "Edit", to: Routes.course_index_path(@socket, :edit, course) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: course.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Course", to: Routes.course_index_path(@socket, :new) %></span>

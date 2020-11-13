@@ -1,0 +1,87 @@
+<h1>Show Nation supul</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.NationSupulLive.FormComponent,
+    id: @nation_supul.id,
+    title: @page_title,
+    action: @live_action,
+    nation_supul: @nation_supul,
+    return_to: Routes.nation_supul_show_path(@socket, :show, @nation_supul) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @nation_supul.t1_balance %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @nation_supul.name %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @nation_supul.type %>
+  </li>
+
+  <li>
+    <strong>Nation supul code:</strong>
+    <%= @nation_supul.nation_supul_code %>
+  </li>
+
+  <li>
+    <strong>Nation name:</strong>
+    <%= @nation_supul.nation_name %>
+  </li>
+
+  <li>
+    <strong>Auth code:</strong>
+    <%= @nation_supul.auth_code %>
+  </li>
+
+  <li>
+    <strong>Hash count:</strong>
+    <%= @nation_supul.hash_count %>
+  </li>
+
+  <li>
+    <strong>Hash chain:</strong>
+    <%= @nation_supul.hash_chain %>
+  </li>
+
+  <li>
+    <strong>Openhash box:</strong>
+    <%= @nation_supul.openhash_box %>
+  </li>
+
+  <li>
+    <strong>Current hash:</strong>
+    <%= @nation_supul.current_hash %>
+  </li>
+
+  <li>
+    <strong>Incoming hash:</strong>
+    <%= @nation_supul.incoming_hash %>
+  </li>
+
+  <li>
+    <strong>Previous hash:</strong>
+    <%= @nation_supul.previous_hash %>
+  </li>
+
+  <li>
+    <strong>Global openhash:</strong>
+    <%= @nation_supul.global_openhash_id %>
+  </li>
+
+  <li>
+    <strong>Sender:</strong>
+    <%= @nation_supul.sender %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.nation_supul_show_path(@socket, :edit, @nation_supul), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.nation_supul_index_path(@socket, :index) %></span>

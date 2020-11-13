@@ -1,0 +1,35 @@
+<h1>Listing Color codes</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.ColorCodeLive.FormComponent,
+    id: @color_code.id || :new,
+    title: @page_title,
+    action: @live_action,
+    color_code: @color_code,
+    return_to: Routes.color_code_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Char 1</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="color_codes">
+    <%= for color_code <- @color_codes do %>
+      <tr id="color_code-<%= color_code.id %>">
+        <td><%= color_code.char_1 %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.color_code_show_path(@socket, :show, color_code) %></span>
+          <span><%= live_patch "Edit", to: Routes.color_code_index_path(@socket, :edit, color_code) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: color_code.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Color code", to: Routes.color_code_index_path(@socket, :new) %></span>

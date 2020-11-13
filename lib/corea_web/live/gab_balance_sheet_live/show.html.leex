@@ -1,0 +1,22 @@
+<h1>Show Gab balance sheet</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GABBalanceSheetLive.FormComponent,
+    id: @gab_balance_sheet.id,
+    title: @page_title,
+    action: @live_action,
+    gab_balance_sheet: @gab_balance_sheet,
+    return_to: Routes.gab_balance_sheet_show_path(@socket, :show, @gab_balance_sheet) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1:</strong>
+    <%= @gab_balance_sheet.t1 %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gab_balance_sheet_show_path(@socket, :edit, @gab_balance_sheet), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gab_balance_sheet_index_path(@socket, :index) %></span>

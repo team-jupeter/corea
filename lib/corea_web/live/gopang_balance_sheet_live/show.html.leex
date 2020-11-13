@@ -1,0 +1,22 @@
+<h1>Show Gopang balance sheet</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GopangBalanceSheetLive.FormComponent,
+    id: @gopang_balance_sheet.id,
+    title: @page_title,
+    action: @live_action,
+    gopang_balance_sheet: @gopang_balance_sheet,
+    return_to: Routes.gopang_balance_sheet_show_path(@socket, :show, @gopang_balance_sheet) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Monetary unit:</strong>
+    <%= @gopang_balance_sheet.monetary_unit %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gopang_balance_sheet_show_path(@socket, :edit, @gopang_balance_sheet), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gopang_balance_sheet_index_path(@socket, :index) %></span>

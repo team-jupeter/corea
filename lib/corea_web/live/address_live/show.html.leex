@@ -1,0 +1,22 @@
+<h1>Show Address</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.AddressLive.FormComponent,
+    id: @address.id,
+    title: @page_title,
+    action: @live_action,
+    address: @address,
+    return_to: Routes.address_show_path(@socket, :show, @address) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>City:</strong>
+    <%= @address.city %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.address_show_path(@socket, :edit, @address), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.address_index_path(@socket, :index) %></span>

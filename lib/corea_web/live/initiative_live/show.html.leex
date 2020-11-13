@@ -1,0 +1,22 @@
+<h1>Show Initiative</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.InitiativeLive.FormComponent,
+    id: @initiative.id,
+    title: @page_title,
+    action: @live_action,
+    initiative: @initiative,
+    return_to: Routes.initiative_show_path(@socket, :show, @initiative) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @initiative.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.initiative_show_path(@socket, :edit, @initiative), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.initiative_index_path(@socket, :index) %></span>

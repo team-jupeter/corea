@@ -1,0 +1,27 @@
+<h1>Show Entity</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.EntityLive.FormComponent,
+    id: @entity.id,
+    title: @page_title,
+    action: @live_action,
+    entity: @entity,
+    return_to: Routes.entity_show_path(@socket, :show, @entity) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @entity.type %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @entity.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.entity_show_path(@socket, :edit, @entity), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.entity_index_path(@socket, :index) %></span>

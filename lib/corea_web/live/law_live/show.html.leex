@@ -1,0 +1,22 @@
+<h1>Show Law</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.LawLive.FormComponent,
+    id: @law.id,
+    title: @page_title,
+    action: @live_action,
+    law: @law,
+    return_to: Routes.law_show_path(@socket, :show, @law) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @law.type %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.law_show_path(@socket, :edit, @law), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.law_index_path(@socket, :index) %></span>

@@ -1,0 +1,43 @@
+<h1>Listing Taxations</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.TaxationLive.FormComponent,
+    id: @taxation.id || :new,
+    title: @page_title,
+    action: @live_action,
+    taxation: @taxation,
+    return_to: Routes.taxation_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>T1 balance</th>
+      <th>Auth code</th>
+      <th>Unique digits</th>
+      <th>Telephones</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="taxations">
+    <%= for taxation <- @taxations do %>
+      <tr id="taxation-<%= taxation.id %>">
+        <td><%= taxation.name %></td>
+        <td><%= taxation.t1_balance %></td>
+        <td><%= taxation.auth_code %></td>
+        <td><%= taxation.unique_digits %></td>
+        <td><%= taxation.telephones %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.taxation_show_path(@socket, :show, taxation) %></span>
+          <span><%= live_patch "Edit", to: Routes.taxation_index_path(@socket, :edit, taxation) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: taxation.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Taxation", to: Routes.taxation_index_path(@socket, :new) %></span>

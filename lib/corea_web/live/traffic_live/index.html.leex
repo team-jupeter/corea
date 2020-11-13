@@ -1,0 +1,35 @@
+<h1>Listing Traffics</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.TrafficLive.FormComponent,
+    id: @traffic.id || :new,
+    title: @page_title,
+    action: @live_action,
+    traffic: @traffic,
+    return_to: Routes.traffic_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="traffics">
+    <%= for traffic <- @traffics do %>
+      <tr id="traffic-<%= traffic.id %>">
+        <td><%= traffic.type %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.traffic_show_path(@socket, :show, traffic) %></span>
+          <span><%= live_patch "Edit", to: Routes.traffic_index_path(@socket, :edit, traffic) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: traffic.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Traffic", to: Routes.traffic_index_path(@socket, :new) %></span>

@@ -1,0 +1,35 @@
+<h1>Listing Tax rates</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.TaxRateLive.FormComponent,
+    id: @tax_rate.id || :new,
+    title: @page_title,
+    action: @live_action,
+    tax_rate: @tax_rate,
+    return_to: Routes.tax_rate_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Gpc code</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tax_rates">
+    <%= for tax_rate <- @tax_rates do %>
+      <tr id="tax_rate-<%= tax_rate.id %>">
+        <td><%= tax_rate.gpc_code %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.tax_rate_show_path(@socket, :show, tax_rate) %></span>
+          <span><%= live_patch "Edit", to: Routes.tax_rate_index_path(@socket, :edit, tax_rate) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: tax_rate.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Tax rate", to: Routes.tax_rate_index_path(@socket, :new) %></span>

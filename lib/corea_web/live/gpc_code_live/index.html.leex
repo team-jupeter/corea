@@ -1,0 +1,39 @@
+<h1>Listing Gpc codes</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.GPCCodeLive.FormComponent,
+    id: @gpc_code.id || :new,
+    title: @page_title,
+    action: @live_action,
+    gpc_code: @gpc_code,
+    return_to: Routes.gpc_code_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Standard</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="gpc_codes">
+    <%= for gpc_code <- @gpc_codes do %>
+      <tr id="gpc_code-<%= gpc_code.id %>">
+        <td><%= gpc_code.code %></td>
+        <td><%= gpc_code.name %></td>
+        <td><%= gpc_code.standard %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.gpc_code_show_path(@socket, :show, gpc_code) %></span>
+          <span><%= live_patch "Edit", to: Routes.gpc_code_index_path(@socket, :edit, gpc_code) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: gpc_code.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Gpc code", to: Routes.gpc_code_index_path(@socket, :new) %></span>

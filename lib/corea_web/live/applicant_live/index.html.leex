@@ -1,0 +1,35 @@
+<h1>Listing Applicants</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.ApplicantLive.FormComponent,
+    id: @applicant.id || :new,
+    title: @page_title,
+    action: @live_action,
+    applicant: @applicant,
+    return_to: Routes.applicant_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="applicants">
+    <%= for applicant <- @applicants do %>
+      <tr id="applicant-<%= applicant.id %>">
+        <td><%= applicant.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.applicant_show_path(@socket, :show, applicant) %></span>
+          <span><%= live_patch "Edit", to: Routes.applicant_index_path(@socket, :edit, applicant) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: applicant.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Applicant", to: Routes.applicant_index_path(@socket, :new) %></span>

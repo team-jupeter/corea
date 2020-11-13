@@ -1,0 +1,22 @@
+<h1>Show Asset</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.AssetLive.FormComponent,
+    id: @asset.id,
+    title: @page_title,
+    action: @live_action,
+    asset: @asset,
+    return_to: Routes.asset_show_path(@socket, :show, @asset) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @asset.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.asset_show_path(@socket, :edit, @asset), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.asset_index_path(@socket, :index) %></span>

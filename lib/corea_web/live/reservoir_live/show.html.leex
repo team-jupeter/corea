@@ -1,0 +1,22 @@
+<h1>Show Reservoir</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.ReservoirLive.FormComponent,
+    id: @reservoir.id,
+    title: @page_title,
+    action: @live_action,
+    reservoir: @reservoir,
+    return_to: Routes.reservoir_show_path(@socket, :show, @reservoir) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Abc t1:</strong>
+    <%= @reservoir.abc_t1 %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.reservoir_show_path(@socket, :edit, @reservoir), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.reservoir_index_path(@socket, :index) %></span>

@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "tax_rate-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :gpc_code %>
+  <%= text_input f, :gpc_code %>
+  <%= error_tag f, :gpc_code %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

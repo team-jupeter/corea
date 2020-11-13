@@ -1,0 +1,35 @@
+<h1>Listing Documents</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.DocumentLive.FormComponent,
+    id: @document.id || :new,
+    title: @page_title,
+    action: @live_action,
+    document: @document,
+    return_to: Routes.document_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Presented by</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="documents">
+    <%= for document <- @documents do %>
+      <tr id="document-<%= document.id %>">
+        <td><%= document.presented_by %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.document_show_path(@socket, :show, document) %></span>
+          <span><%= live_patch "Edit", to: Routes.document_index_path(@socket, :edit, document) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: document.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Document", to: Routes.document_index_path(@socket, :new) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Gov balance sheet</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GovBalanceSheetLive.FormComponent,
+    id: @gov_balance_sheet.id,
+    title: @page_title,
+    action: @live_action,
+    gov_balance_sheet: @gov_balance_sheet,
+    return_to: Routes.gov_balance_sheet_show_path(@socket, :show, @gov_balance_sheet) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Monetary unit:</strong>
+    <%= @gov_balance_sheet.monetary_unit %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gov_balance_sheet_show_path(@socket, :edit, @gov_balance_sheet), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gov_balance_sheet_index_path(@socket, :index) %></span>

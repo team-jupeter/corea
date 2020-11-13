@@ -1,0 +1,22 @@
+<h1>Show Payload archive</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.PayloadArchiveLive.FormComponent,
+    id: @payload_archive.id,
+    title: @page_title,
+    action: @live_action,
+    payload_archive: @payload_archive,
+    return_to: Routes.payload_archive_show_path(@socket, :show, @payload_archive) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @payload_archive.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.payload_archive_show_path(@socket, :edit, @payload_archive), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.payload_archive_index_path(@socket, :index) %></span>

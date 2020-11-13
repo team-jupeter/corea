@@ -1,0 +1,22 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "school-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :description %>
+  <%= text_input f, :description %>
+  <%= error_tag f, :description %>
+
+  <%= label f, :mentors %>
+  <%= multiple_select f, :mentors, ["Option 1": "option1", "Option 2": "option2"] %>
+  <%= error_tag f, :mentors %>
+
+  <%= label f, :title %>
+  <%= text_input f, :title %>
+  <%= error_tag f, :title %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

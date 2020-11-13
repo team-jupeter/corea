@@ -1,0 +1,22 @@
+<h1>Show Gopang</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GopangLive.FormComponent,
+    id: @gopang.id,
+    title: @page_title,
+    action: @live_action,
+    gopang: @gopang,
+    return_to: Routes.gopang_show_path(@socket, :show, @gopang) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @gopang.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.gopang_show_path(@socket, :edit, @gopang), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.gopang_index_path(@socket, :index) %></span>

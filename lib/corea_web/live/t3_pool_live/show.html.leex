@@ -1,0 +1,22 @@
+<h1>Show T3 pool</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.T3PoolLive.FormComponent,
+    id: @t3_pool.id,
+    title: @page_title,
+    action: @live_action,
+    t3_pool: @t3_pool,
+    return_to: Routes.t3_pool_show_path(@socket, :show, @t3_pool) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @t3_pool.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.t3_pool_show_path(@socket, :edit, @t3_pool), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.t3_pool_index_path(@socket, :index) %></span>

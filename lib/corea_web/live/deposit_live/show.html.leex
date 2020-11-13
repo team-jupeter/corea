@@ -1,0 +1,22 @@
+<h1>Show Deposit</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.DepositLive.FormComponent,
+    id: @deposit.id,
+    title: @page_title,
+    action: @live_action,
+    deposit: @deposit,
+    return_to: Routes.deposit_show_path(@socket, :show, @deposit) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Typel:</strong>
+    <%= @deposit.typel %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.deposit_show_path(@socket, :edit, @deposit), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.deposit_index_path(@socket, :index) %></span>

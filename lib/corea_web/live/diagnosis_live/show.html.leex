@@ -1,0 +1,22 @@
+<h1>Show Diagnosis</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.DiagnosisLive.FormComponent,
+    id: @diagnosis.id,
+    title: @page_title,
+    action: @live_action,
+    diagnosis: @diagnosis,
+    return_to: Routes.diagnosis_show_path(@socket, :show, @diagnosis) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Doctor:</strong>
+    <%= @diagnosis.doctor %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.diagnosis_show_path(@socket, :edit, @diagnosis), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.diagnosis_index_path(@socket, :index) %></span>

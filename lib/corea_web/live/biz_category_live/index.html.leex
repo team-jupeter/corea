@@ -1,0 +1,39 @@
+<h1>Listing Biz categories</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.BizCategoryLive.FormComponent,
+    id: @biz_category.id || :new,
+    title: @page_title,
+    action: @live_action,
+    biz_category: @biz_category,
+    return_to: Routes.biz_category_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Standard</th>
+      <th>Name</th>
+      <th>Code</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="biz_categories">
+    <%= for biz_category <- @biz_categories do %>
+      <tr id="biz_category-<%= biz_category.id %>">
+        <td><%= biz_category.standard %></td>
+        <td><%= biz_category.name %></td>
+        <td><%= biz_category.code %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.biz_category_show_path(@socket, :show, biz_category) %></span>
+          <span><%= live_patch "Edit", to: Routes.biz_category_index_path(@socket, :edit, biz_category) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: biz_category.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Biz category", to: Routes.biz_category_index_path(@socket, :new) %></span>

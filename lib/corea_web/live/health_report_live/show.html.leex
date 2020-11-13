@@ -1,0 +1,22 @@
+<h1>Show Health report</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.HealthReportLive.FormComponent,
+    id: @health_report.id,
+    title: @page_title,
+    action: @live_action,
+    health_report: @health_report,
+    return_to: Routes.health_report_show_path(@socket, :show, @health_report) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Dna:</strong>
+    <%= @health_report.dna %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.health_report_show_path(@socket, :edit, @health_report), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.health_report_index_path(@socket, :index) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Treatment</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TreatmentLive.FormComponent,
+    id: @treatment.id,
+    title: @page_title,
+    action: @live_action,
+    treatment: @treatment,
+    return_to: Routes.treatment_show_path(@socket, :show, @treatment) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Doctor:</strong>
+    <%= @treatment.doctor %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.treatment_show_path(@socket, :edit, @treatment), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.treatment_index_path(@socket, :index) %></span>

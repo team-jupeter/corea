@@ -1,0 +1,22 @@
+<h1>Show Category</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.CategoryLive.FormComponent,
+    id: @category.id,
+    title: @page_title,
+    action: @live_action,
+    category: @category,
+    return_to: Routes.category_show_path(@socket, :show, @category) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @category.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.category_show_path(@socket, :edit, @category), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.category_index_path(@socket, :index) %></span>

@@ -1,0 +1,35 @@
+<h1>Listing Bio data</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.BioDatumLive.FormComponent,
+    id: @bio_datum.id || :new,
+    title: @page_title,
+    action: @live_action,
+    bio_datum: @bio_datum,
+    return_to: Routes.bio_datum_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dna</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="bio_data">
+    <%= for bio_datum <- @bio_data do %>
+      <tr id="bio_datum-<%= bio_datum.id %>">
+        <td><%= bio_datum.dna %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.bio_datum_show_path(@socket, :show, bio_datum) %></span>
+          <span><%= live_patch "Edit", to: Routes.bio_datum_index_path(@socket, :edit, bio_datum) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: bio_datum.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Bio datum", to: Routes.bio_datum_index_path(@socket, :new) %></span>

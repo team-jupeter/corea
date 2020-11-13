@@ -1,0 +1,35 @@
+<h1>Listing Patent applications</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.PatentApplicationLive.FormComponent,
+    id: @patent_application.id || :new,
+    title: @page_title,
+    action: @live_action,
+    patent_application: @patent_application,
+    return_to: Routes.patent_application_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Applied by</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="patent_applications">
+    <%= for patent_application <- @patent_applications do %>
+      <tr id="patent_application-<%= patent_application.id %>">
+        <td><%= patent_application.applied_by %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.patent_application_show_path(@socket, :show, patent_application) %></span>
+          <span><%= live_patch "Edit", to: Routes.patent_application_index_path(@socket, :edit, patent_application) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: patent_application.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Patent application", to: Routes.patent_application_index_path(@socket, :new) %></span>

@@ -1,0 +1,35 @@
+<h1>Listing Treatments</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.TreatmentLive.FormComponent,
+    id: @treatment.id || :new,
+    title: @page_title,
+    action: @live_action,
+    treatment: @treatment,
+    return_to: Routes.treatment_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Doctor</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="treatments">
+    <%= for treatment <- @treatments do %>
+      <tr id="treatment-<%= treatment.id %>">
+        <td><%= treatment.doctor %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.treatment_show_path(@socket, :show, treatment) %></span>
+          <span><%= live_patch "Edit", to: Routes.treatment_index_path(@socket, :edit, treatment) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: treatment.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Treatment", to: Routes.treatment_index_path(@socket, :new) %></span>

@@ -1,0 +1,35 @@
+<h1>Listing Initiatives</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.InitiativeLive.FormComponent,
+    id: @initiative.id || :new,
+    title: @page_title,
+    action: @live_action,
+    initiative: @initiative,
+    return_to: Routes.initiative_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="initiatives">
+    <%= for initiative <- @initiatives do %>
+      <tr id="initiative-<%= initiative.id %>">
+        <td><%= initiative.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.initiative_show_path(@socket, :show, initiative) %></span>
+          <span><%= live_patch "Edit", to: Routes.initiative_index_path(@socket, :edit, initiative) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: initiative.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Initiative", to: Routes.initiative_index_path(@socket, :new) %></span>

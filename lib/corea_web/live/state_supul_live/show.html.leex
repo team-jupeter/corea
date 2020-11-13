@@ -1,0 +1,62 @@
+<h1>Show State supul</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.StateSupulLive.FormComponent,
+    id: @state_supul.id,
+    title: @page_title,
+    action: @live_action,
+    state_supul: @state_supul,
+    return_to: Routes.state_supul_show_path(@socket, :show, @state_supul) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>T1 balance:</strong>
+    <%= @state_supul.t1_balance %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @state_supul.type %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @state_supul.name %>
+  </li>
+
+  <li>
+    <strong>Auth code:</strong>
+    <%= @state_supul.auth_code %>
+  </li>
+
+  <li>
+    <strong>Hash count:</strong>
+    <%= @state_supul.hash_count %>
+  </li>
+
+  <li>
+    <strong>Hash chain:</strong>
+    <%= @state_supul.hash_chain %>
+  </li>
+
+  <li>
+    <strong>Openhash box:</strong>
+    <%= @state_supul.openhash_box %>
+  </li>
+
+  <li>
+    <strong>Current hash:</strong>
+    <%= @state_supul.current_hash %>
+  </li>
+
+  <li>
+    <strong>Incoming hash:</strong>
+    <%= @state_supul.incoming_hash %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.state_supul_show_path(@socket, :edit, @state_supul), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.state_supul_index_path(@socket, :index) %></span>

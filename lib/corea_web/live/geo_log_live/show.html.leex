@@ -1,0 +1,22 @@
+<h1>Show Geo log</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.GeoLogLive.FormComponent,
+    id: @geo_log.id,
+    title: @page_title,
+    action: @live_action,
+    geo_log: @geo_log,
+    return_to: Routes.geo_log_show_path(@socket, :show, @geo_log) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Latitude:</strong>
+    <%= @geo_log.latitude %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.geo_log_show_path(@socket, :edit, @geo_log), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.geo_log_index_path(@socket, :index) %></span>

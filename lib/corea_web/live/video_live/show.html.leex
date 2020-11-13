@@ -1,0 +1,22 @@
+<h1>Show Video</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.VideoLive.FormComponent,
+    id: @video.id,
+    title: @page_title,
+    action: @live_action,
+    video: @video,
+    return_to: Routes.video_show_path(@socket, :show, @video) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @video.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.video_show_path(@socket, :edit, @video), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.video_index_path(@socket, :index) %></span>

@@ -1,0 +1,22 @@
+<h1>Show Transport</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TransportLive.FormComponent,
+    id: @transport.id,
+    title: @page_title,
+    action: @live_action,
+    transport: @transport,
+    return_to: Routes.transport_show_path(@socket, :show, @transport) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @transport.type %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.transport_show_path(@socket, :edit, @transport), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.transport_index_path(@socket, :index) %></span>

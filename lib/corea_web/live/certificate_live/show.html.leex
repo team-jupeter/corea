@@ -1,0 +1,22 @@
+<h1>Show Certificate</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.CertificateLive.FormComponent,
+    id: @certificate.id,
+    title: @page_title,
+    action: @live_action,
+    certificate: @certificate,
+    return_to: Routes.certificate_show_path(@socket, :show, @certificate) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @certificate.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.certificate_show_path(@socket, :edit, @certificate), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.certificate_index_path(@socket, :index) %></span>

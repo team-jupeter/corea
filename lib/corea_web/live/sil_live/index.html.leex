@@ -1,0 +1,35 @@
+<h1>Listing Sils</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.SilLive.FormComponent,
+    id: @sil.id || :new,
+    title: @page_title,
+    action: @live_action,
+    sil: @sil,
+    return_to: Routes.sil_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Current hash</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="sils">
+    <%= for sil <- @sils do %>
+      <tr id="sil-<%= sil.id %>">
+        <td><%= sil.current_hash %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.sil_show_path(@socket, :show, sil) %></span>
+          <span><%= live_patch "Edit", to: Routes.sil_index_path(@socket, :edit, sil) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: sil.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Sil", to: Routes.sil_index_path(@socket, :new) %></span>

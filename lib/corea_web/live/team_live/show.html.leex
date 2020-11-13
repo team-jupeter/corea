@@ -1,0 +1,22 @@
+<h1>Show Team</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.TeamLive.FormComponent,
+    id: @team.id,
+    title: @page_title,
+    action: @live_action,
+    team: @team,
+    return_to: Routes.team_show_path(@socket, :show, @team) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @team.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.team_show_path(@socket, :edit, @team), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.team_index_path(@socket, :index) %></span>

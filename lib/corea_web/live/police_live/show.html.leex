@@ -1,0 +1,22 @@
+<h1>Show Police</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.PoliceLive.FormComponent,
+    id: @police.id,
+    title: @page_title,
+    action: @live_action,
+    police: @police,
+    return_to: Routes.police_show_path(@socket, :show, @police) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @police.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.police_show_path(@socket, :edit, @police), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.police_index_path(@socket, :index) %></span>

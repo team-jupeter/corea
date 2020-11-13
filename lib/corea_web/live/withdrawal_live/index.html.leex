@@ -1,0 +1,35 @@
+<h1>Listing Withdrawals</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.WithdrawalLive.FormComponent,
+    id: @withdrawal.id || :new,
+    title: @page_title,
+    action: @live_action,
+    withdrawal: @withdrawal,
+    return_to: Routes.withdrawal_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="withdrawals">
+    <%= for withdrawal <- @withdrawals do %>
+      <tr id="withdrawal-<%= withdrawal.id %>">
+        <td><%= withdrawal.amount %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.withdrawal_show_path(@socket, :show, withdrawal) %></span>
+          <span><%= live_patch "Edit", to: Routes.withdrawal_index_path(@socket, :edit, withdrawal) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: withdrawal.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Withdrawal", to: Routes.withdrawal_index_path(@socket, :new) %></span>

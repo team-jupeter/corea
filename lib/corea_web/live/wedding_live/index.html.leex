@@ -1,0 +1,35 @@
+<h1>Listing Weddings</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CoreaWeb.WeddingLive.FormComponent,
+    id: @wedding.id || :new,
+    title: @page_title,
+    action: @live_action,
+    wedding: @wedding,
+    return_to: Routes.wedding_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bride</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="weddings">
+    <%= for wedding <- @weddings do %>
+      <tr id="wedding-<%= wedding.id %>">
+        <td><%= wedding.bride %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.wedding_show_path(@socket, :show, wedding) %></span>
+          <span><%= live_patch "Edit", to: Routes.wedding_index_path(@socket, :edit, wedding) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: wedding.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Wedding", to: Routes.wedding_index_path(@socket, :new) %></span>

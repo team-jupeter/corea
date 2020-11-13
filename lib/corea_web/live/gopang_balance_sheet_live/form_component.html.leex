@@ -1,0 +1,14 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "gopang_balance_sheet-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :monetary_unit %>
+  <%= text_input f, :monetary_unit %>
+  <%= error_tag f, :monetary_unit %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

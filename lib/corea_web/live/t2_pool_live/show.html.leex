@@ -1,0 +1,22 @@
+<h1>Show T2 pool</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CoreaWeb.T2PoolLive.FormComponent,
+    id: @t2_pool.id,
+    title: @page_title,
+    action: @live_action,
+    t2_pool: @t2_pool,
+    return_to: Routes.t2_pool_show_path(@socket, :show, @t2_pool) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @t2_pool.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.t2_pool_show_path(@socket, :edit, @t2_pool), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.t2_pool_index_path(@socket, :index) %></span>
